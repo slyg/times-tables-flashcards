@@ -2,21 +2,42 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
+.App-body {
+  transition: background-color 0.2s ease;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(200px + 2vmin);
   color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-body--red {
+  background-color: #993c3c;
+}
+.App-body--blue {
+  background-color: #3c7e99;
+}
+.App-body--green {
+  background-color: #82a258;
+}
+.App-body--purple {
+  background-color: #945d8a;
+}
+.App-body--maroon {
+  background-color: #996c3c;
+}
+.App-body--violet {
+  background-color: #5d6194;
+}
+.App-body--turquoise {
+  background-color: #5d8994;
+}
+.App-body--greyish {
+  background-color: #4c4444;
 }
 
 .App-link {
