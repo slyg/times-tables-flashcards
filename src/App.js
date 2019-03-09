@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
 
-const colors = [
+function* colorGen(colors) {
+  while (true) yield* colors;
+}
+
+const SPACE_KEY = 32;
+const RIGHT_ARROW_KEY = 39;
+const DOWN_ARROW_KEY = 40;
+
+const gen = colorGen([
   "red",
   "blue",
   "green",
@@ -11,49 +19,44 @@ const colors = [
   "turquoise",
   "greyish",
   "default"
-];
+]);
 
-const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
-
+const nextColor = () => gen.next().value;
 const getRandomNum = () => Math.trunc(Math.random() * 11);
-
-const Times = ({ a, b }) => (
-  <p>
-    {a.toString()} x {b.toString()}
-  </p>
-);
-
-const Result = ({ result }) => <p>{result}</p>;
-
-const SPACE_KEY = 32;
 
 class App extends Component {
   state = {
-    a: 1,
-    b: 1,
-    result: 1,
+    a: 0,
+    b: 0,
+    result: 0,
     showResult: false,
     color: "default"
   };
 
+  change() {
+    if (this.state.showResult === false) {
+      this.setState({
+        showResult: true
+      });
+    } else {
+      const [a, b, color] = [getRandomNum(), getRandomNum(), nextColor()];
+      const result = a * b;
+      this.setState({
+        a,
+        b,
+        result,
+        color,
+        showResult: false
+      });
+    }
+  }
+
   handleKeyDown(event) {
     switch (event.keyCode) {
       case SPACE_KEY:
-        if (this.state.showResult === false) {
-          this.setState({
-            showResult: true
-          });
-        } else {
-          const [a, b, color] = [getRandomNum(), getRandomNum(), randomColor()];
-          const result = a * b;
-          this.setState({
-            a,
-            b,
-            result,
-            color,
-            showResult: false
-          });
-        }
+      case RIGHT_ARROW_KEY:
+      case DOWN_ARROW_KEY:
+        this.change();
         break;
       default:
         break;
@@ -69,15 +72,18 @@ class App extends Component {
   }
 
   render() {
-    const bgClass = `App-body App-body--${this.state.color}`;
+    const { a, b, result, showResult, color } = this.state;
+
+    const stateClass = `App-body App-body--${color} App-body--${
+      showResult ? "result" : "statement"
+    }`;
     return (
-      <div className="App">
-        <div className={bgClass}>
-          {this.state.showResult ? (
-            <Result {...this.state} />
-          ) : (
-            <Times {...this.state} />
-          )}
+      <div className="App" onClick={this.change.bind(this)}>
+        <div className={stateClass}>
+          <span className="statement">
+            {a.toString()} x {b.toString()}
+          </span>
+          <span className="result">{result}</span>
         </div>
       </div>
     );

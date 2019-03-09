@@ -3,16 +3,15 @@
 }
 
 .App-body {
-  transition: background-color 0.2s ease;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(200px + 2vmin);
+  font-size: 50vmin;
   color: white;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .App-body--red {
@@ -40,15 +39,31 @@
   background-color: #4c4444;
 }
 
-.App-link {
-  color: #61dafb;
+.App-body .result,
+.App-body .statement {
+  transition: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-body--result .result,
+.App-body--result .statement {
+  transition: font-size 0.2s ease;
+}
+
+.App-body .result {
+  font-size: 0%;
+  opacity: 0;
+}
+
+.App-body .statement {
+  font-size: 90%;
+}
+
+.App-body--result .result {
+  font-size: 90%;
+  opacity: 1;
+}
+
+.App-body--result .statement {
+  font-size: 10%;
+  opacity: 0.5;
 }
