@@ -1,10 +1,20 @@
 workflow "Deploy on Now" {
   on = "push"
-  resolves = ["deploy"]
+  resolves = ["Alias"]
 }
 
-action "deploy" {
+action "Deploy" {
   uses = "actions/zeit-now@master"
-  args = "--public --no-clipboard deploy . > $HOME/$GITHUB_ACTION.txt"
-  secrets = ["ZEIT_TOKEN"]
+  secrets = [
+    "ZEIT_TOKEN",
+  ]
+}
+
+action "Alias" {
+  uses = "actions/zeit-now@master"
+  needs = "Deploy"
+  args = "alias"
+  secrets = [
+    "ZEIT_TOKEN",
+  ]
 }
