@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "times-tables-flashcards",
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
+  "routes": [
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": "^/(.*)", "dest": "/index.html" }
+  ],
+  "public": true
+}
