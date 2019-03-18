@@ -7,3 +7,73 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.App {
+  text-align: center;
+}
+
+.App-body {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 50vmin;
+  color: white;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.App-body--red {
+  background-color: #993c3c;
+}
+.App-body--blue {
+  background-color: #3c7e99;
+}
+.App-body--green {
+  background-color: #82a258;
+}
+.App-body--purple {
+  background-color: #945d8a;
+}
+.App-body--maroon {
+  background-color: #996c3c;
+}
+.App-body--violet {
+  background-color: #5d6194;
+}
+.App-body--turquoise {
+  background-color: #5d8994;
+}
+.App-body--greyish {
+  background-color: #4c4444;
+}
+
+.App-body .result,
+.App-body .statement {
+  transition: none;
+}
+
+.App-body--result .result,
+.App-body--result .statement {
+  transition: font-size 0.2s ease;
+}
+
+.App-body .result {
+  font-size: 0%;
+  opacity: 0;
+}
+
+.App-body .statement {
+  font-size: 90%;
+}
+
+.App-body--result .result {
+  font-size: 90%;
+  opacity: 1;
+}
+
+.App-body--result .statement {
+  font-size: 10%;
+  opacity: 0.5;
+}

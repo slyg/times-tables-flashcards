@@ -1,93 +1,78 @@
-import React, { Component } from "react";
-import "./App.css";
-
-function* colorGen(colors) {
-  while (true) yield* colors;
-}
+import React, { useState, useEffect } from "react";
+import { nextColor, getRandomNum } from "./utils";
 
 const SPACE_KEY = 32;
 const RIGHT_ARROW_KEY = 39;
 const DOWN_ARROW_KEY = 40;
 
-const gen = colorGen([
-  "red",
-  "blue",
-  "green",
-  "purple",
-  "maroon",
-  "violet",
-  "turquoise",
-  "greyish",
-  "default"
-]);
+const initialState = {
+  a: 0,
+  b: 0,
+  result: 0,
+  showResult: false,
+  color: "default"
+};
 
-const nextColor = () => gen.next().value;
-const getRandomNum = () => Math.trunc(Math.random() * 11);
-
-class App extends Component {
-  state = {
-    a: 0,
-    b: 0,
-    result: 0,
-    showResult: false,
-    color: "default"
-  };
-
-  change() {
-    if (this.state.showResult === false) {
-      this.setState({
-        showResult: true
-      });
-    } else {
-      const [a, b, color] = [getRandomNum(), getRandomNum(), nextColor()];
-      const result = a * b;
-      this.setState({
-        a,
-        b,
-        result,
-        color,
-        showResult: false
-      });
-    }
+const updateState = ({ state, setState }) => {
+  if (state.showResult === false) {
+    setState({
+      ...state,
+      showResult: true
+    });
+  } else {
+    const [a, b, color] = [getRandomNum(), getRandomNum(), nextColor()];
+    const result = a * b;
+    setState({
+      ...state,
+      a,
+      b,
+      result,
+      color,
+      showResult: false
+    });
   }
+};
 
-  handleKeyDown(event) {
+const App = () => {
+  const [state, setState] = useState(initialState);
+
+  const update = () => updateState({ state, setState });
+
+  const handleKeyDown = event => {
     switch (event.keyCode) {
       case SPACE_KEY:
       case RIGHT_ARROW_KEY:
       case DOWN_ARROW_KEY:
-        this.change();
+        update();
         break;
       default:
         break;
     }
-  }
+  };
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyDown.bind(this));
-  }
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  });
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
-  }
+  const { a, b, result, showResult, color } = state;
 
-  render() {
-    const { a, b, result, showResult, color } = this.state;
+  const stateClass = `App-body App-body--${color} App-body--${
+    showResult ? "result" : "statement"
+  }`;
 
-    const stateClass = `App-body App-body--${color} App-body--${
-      showResult ? "result" : "statement"
-    }`;
-    return (
-      <div className="App" onClick={this.change.bind(this)}>
-        <div className={stateClass}>
-          <span className="statement">
-            {a.toString()} x {b.toString()}
-          </span>
-          <span className="result">{result}</span>
-        </div>
+  return (
+    <div className="App" onClick={update}>
+      <div className={stateClass}>
+        <span className="statement">
+          {a.toString()} x {b.toString()}
+        </span>
+        <span className="result">{result}</span>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
