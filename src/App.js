@@ -9,9 +9,11 @@ const App = () => {
 
   const { a, b, result, showResult, color } = state;
 
-  const stateClass = `App-body App-body--${color} App-body--${
-    showResult ? "result" : "statement"
-  }`;
+  const stateClass = [
+    `App-body`,
+    `App-body--${color}`,
+    `App-body--${showResult ? "result" : "statement"}`
+  ].join(" ");
 
   return (
     <div className="App" onClick={updateState}>
