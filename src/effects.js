@@ -2,8 +2,8 @@ const SPACE_KEY = 32;
 const RIGHT_ARROW_KEY = 39;
 const DOWN_ARROW_KEY = 40;
 
-export const keyDownUpdate = cb => {
-  const handleKeyDown = event => {
+export const keyDownUpdate = (cb) => {
+  const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case SPACE_KEY:
       case RIGHT_ARROW_KEY:

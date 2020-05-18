@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { initialState, update } from "./state";
+import React, { useEffect, useState } from "react";
 import { keyDownUpdate } from "./effects";
+import { initialState, update } from "./state";
 
 const App = () => {
   const [state, setState] = useState(initialState);
@@ -12,7 +12,7 @@ const App = () => {
   const stateClass = [
     `App-body`,
     `App-body--${color}`,
-    `App-body--${showResult ? "result" : "statement"}`
+    `App-body--${showResult ? "result" : "statement"}`,
   ].join(" ");
 
   return (
